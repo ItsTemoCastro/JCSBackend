@@ -10,4 +10,22 @@ router.get("/api/alumnos", async (req, res) =>{
     });
 })
 
+router.post('/api/auth', (request, response) => {
+	const username = request.body.username;
+	const password = request.body.password;
+	//const {username, password} = request.body;
+	if (username && password) {
+		db.query('SELECT * FROM users WHERE user = ? AND pass = ?', [username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				
+				response.send({ session: true});
+			} else {
+				response.send({ message: "Contraseña/Usuario equivocado" });
+			}			
+		});
+	} else {
+		response.send({ message: "Inserte un Usuario o Contraseña" });
+	}
+});
+
 module.exports = router;

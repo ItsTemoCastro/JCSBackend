@@ -18,13 +18,13 @@ router.post('/api/auth', (request, response) => {
 		db.query('SELECT * FROM users WHERE user = ? AND pass = ?', [username, password], function(error, results, fields) {
 			if (results.length > 0) {
 				
-				response.send({ session: true});
+				response.send({ session: true, message: "sesion exitosa"});
 			} else {
-				response.send({ message: "Contraseña/Usuario equivocado" });
+				response.send({ session: false , message: "Contraseña/Usuario equivocado" });
 			}			
 		});
 	} else {
-		response.send({ message: "Inserte un Usuario o Contraseña" });
+		response.send({ session: false , message: "Inserte un Usuario o Contraseña" });
 	}
 });
 

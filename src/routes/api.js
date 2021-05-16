@@ -13,14 +13,16 @@ router.get("/api/alumnos/:NoControl", async (req, res) =>{
 
 router.post('/api/auth', (request, response) => {
 	const username = request.body.username;
-	const password = request.body.password;
+	const password = request.body.password; 
+	let NoControl = "";
 	//const {username, password} = request.body;
 	if (username && password) {
 		db.query('SELECT * FROM usuarios WHERE userName = ? AND userPass = ?', [username, password], function(error, results, fields) {
+			NoControl = JSON.parse(JSON.stringify(results));
 			if (results.length > 0) {
 				
 				//response.send({ session: true, message: "sesion exitosa"});
-				response.send({ session: true, datos: JSON.parse(JSON.stringify(results)), message: "sesion exitosa"});
+				response.send({ session: true, datos: NoControl[0].NoControl, message: "sesion exitosa"});
 			} else {
 				response.send({ session: false , message: "Contraseña/Usuario equivocado" });
 			}			

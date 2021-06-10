@@ -8,6 +8,7 @@ router.get("/api/alumnos/:NoControl", async (req, res) =>{
     await db.query('SELECT * FROM tblalumnos Where NoControl = ?',NoControl, (error, result) =>{
         if(error) throw error;
         res.json(result);
+		console.log(result);
     });
 })
 
@@ -23,6 +24,7 @@ router.post('/api/auth', (request, response) => {
 				
 				//response.send({ session: true, message: "sesion exitosa"});
 				response.send({ session: true, datos: NoControl[0].NoControl, message: "sesion exitosa"});
+				//response.json(NoControl);
 			} else {
 				response.send({ session: false , message: "Contraseña/Usuario equivocado" });
 			}			
